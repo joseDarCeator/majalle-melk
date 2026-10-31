@@ -1,0 +1,237 @@
+
+---
+const { active = "home" } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="مجله ملک، مجله تخصصی بازار ملک مشهد">
+      <span class="logo-name">مجله ملک</span>
+      <span class="logo-location">مجله تخصصی بازار ملک مشهد</span>
+    </a>
+    <nav class="main-nav" aria-label="منوی اصلی">
+      <a href="/" aria-current={active === "home" ? "page" : undefined}>خانه</a>
+      <a href="/articles" aria-current={active === "articles" ? "page" : undefined}>مقالات</a>
+      <a href="/investment" aria-current={active === "investment" ? "page" : undefined}>سرمایه‌گذاری</a>
+    </nav>
+
+    <details class="mobile-menu">
+      <summary aria-label="باز کردن منو">
+        منو <span aria-hidden="true">☰</span>
+      </summary>
+      <nav aria-label="منوی موبایل">
+        <a href="/">خانه</a>
+        <a href="/articles">مقالات</a>
+        <a href="/investment">سرمایه‌گذاری</a>
+        <a href="/about">درباره ما</a>
+      </nav>
+    </details>
+
+    <a href="/about" class="header-button">درباره ما</a>
+  </div>
+</header>
+
+<style>
+  .container {
+    width: min(1180px, calc(100% - 48px));
+    margin-inline: auto;
+  }
+
+  .site-header {
+    position: relative;
+    z-index: 5;
+    border-bottom: 1px solid rgba(243, 236, 222, 0.15);
+    background: rgba(24, 52, 81, 0.96);
+  }
+
+  .header-inner {
+    min-height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    color: #d4af83;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .logo-name {
+    font-size: 1.35rem;
+    line-height: 1.15;
+    font-weight: 700;
+  }
+
+  .logo-location {
+    color: rgba(243, 236, 222, 0.55);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex: 1;
+  }
+
+  .main-nav a {
+    position: relative;
+    color: rgba(243, 236, 222, 0.78);
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+
+  .main-nav a::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -8px;
+    width: 0;
+    height: 1px;
+    background: #d4af83;
+    transition: width 0.25s ease;
+  }
+
+  .main-nav a:hover,
+  .main-nav a[aria-current="page"] {
+    color: #d4af83;
+  }
+
+  .main-nav a:hover::after,
+  .main-nav a[aria-current="page"]::after {
+    width: 100%;
+  }
+
+  .mobile-menu {
+    display: none;
+  }
+
+  .header-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 19px;
+    background: #a9501c;
+    color: #f3ecde;
+    border: 1px solid #a9501c;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  .header-button:hover {
+    background: #8f4317;
+    transform: translateY(-2px);
+  }
+
+  .site-header a:focus-visible,
+  .site-header summary:focus-visible {
+    outline: 2px solid #d4af83;
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 850px) {
+    .main-nav {
+      display: none;
+    }
+
+    .mobile-menu {
+      display: block;
+      position: relative;
+    }
+
+    .mobile-menu summary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 11px;
+      color: #f3ecde;
+      border: 1px solid rgba(212, 175, 131, 0.35);
+      border-radius: 4px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.8rem;
+    }
+
+    .mobile-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mobile-menu[open] summary {
+      border-color: #d4af83;
+      color: #d4af83;
+    }
+
+    .mobile-menu nav {
+      position: absolute;
+      z-index: 20;
+      top: calc(100% + 10px);
+      right: 0;
+      display: grid;
+      min-width: 175px;
+      padding: 8px;
+      gap: 2px;
+      background: #102b44;
+      border: 1px solid rgba(212, 175, 131, 0.25);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .mobile-menu nav a {
+      padding: 11px 12px;
+      color: rgba(243, 236, 222, 0.86);
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    .mobile-menu nav a:hover {
+      color: #d4af83;
+      background: rgba(243, 236, 222, 0.04);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .container {
+      width: min(calc(100% - 30px), 1180px);
+    .header-inner {
+	  min-height: 72px;
+	  display: grid;
+	  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+	  align-items: center;
+	  gap: 8px;
+	}
+
+	.logo {
+	  grid-column: 2;
+	  justify-self: center;
+	  align-items: center;
+	  text-align: center;
+	}
+
+	.mobile-menu {
+	  grid-column: 1;
+	  justify-self: start;
+	}
+
+	.header-button {
+	  grid-column: 3;
+	  justify-self: end;
+	  padding: 9px 12px;
+	  font-size: 0.75rem;
+	}
+  }
+</style>
+
+
