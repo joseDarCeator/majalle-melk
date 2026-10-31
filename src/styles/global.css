@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
+
+html,
+body,
+button,
+input,
+textarea,
+select {
+  font-family: "Vazirmatn", sans-serif;
+}
+/* رنگ‌بندی اصلی مجله ملک */
+:root {
+  --color-background: #183451;
+  --color-button: #A9501C;
+  --color-title: #D4AF83;
+  --color-text: #FFFFFF;
+  --color-accent: #D4AF83;
+}
+
+/* رنگ تمام عنوان‌ها */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-title) !important;
+}
+
+/* رنگ متن‌های اصلی */
+p {
+  color: var(--color-text) !important;
+}

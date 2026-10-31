@@ -1,0 +1,439 @@
+---
+import SiteHeader from "../components/SiteHeader.astro";
+import { articles } from "../data/articles.js";
+import "../styles/global.css";
+const featuredArticle = articles.find((article) => article.featured);
+const otherArticles = articles.filter((article) => !article.featured);
+---
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>مقالات بازار ملک مشهد | مجله ملک</title>
+  <meta name="description" content="راهنماها و مقالات خرید ملک و سرمایه‌گذاری در مشهد." />
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+</head>
+<body>
+  <SiteHeader active="articles" />
+
+  <main>
+    <section class="intro">
+      <span class="eyebrow">دانش بازار ملک</span>
+      <h1>مقالات مجله ملک</h1>
+      <p>راهنماها و مطالب کاربردی درباره خرید ملک و سرمایه‌گذاری در مشهد.</p>
+    </section>
+
+    {featuredArticle && (
+      <section class="featured">
+        <span class="eyebrow">مقاله ویژه · {featuredArticle.category}</span>
+        <h2>{featuredArticle.title}</h2>
+        <p>{featuredArticle.excerpt}</p>
+        <a class="button" href={`/articles/${featuredArticle.slug}`}>مطالعه مقاله ←</a>
+      </section>
+    )}
+
+    <section class="listing">
+      <h2>تازه‌ترین مقالات</h2>
+      <div class="grid">
+        {otherArticles.map((article) => (
+          <article class="card">
+            <span class="eyebrow">{article.category}</span>
+            <h3>{article.title}</h3>
+            <p>{article.excerpt}</p>
+            <div class="meta">
+              <span>{article.readTime} دقیقه مطالعه</span>
+              <a href={`/articles/${article.slug}`}>ادامه مطلب ←</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="logo">مجله ملک</div>
+          <p>
+            روایت بازار ملک، سرمایه‌گذاری و زندگی در مشهد.
+          </p>
+        </div>
+
+        <nav class="footer-links" aria-label="پیوندهای پایین صفحه">
+          <a href="/">خانه</a>
+          <a href="/articles">مقالات</a>
+          <a href="/investment">سرمایه‌گذاری</a>
+          <a href="/about">درباره ما</a>
+        </nav>
+      </div>
+
+      <div class="container footer-bottom">
+        <span>© ۱۴۰۵ مجله ملک</span>
+      <span>تمام حقوق محفوظ است.</span>
+      </div>
+    </footer>
+</body>
+</html>
+
+<style>
+  * { box-sizing: border-box; }
+
+  :global(body) {
+    margin: 0;
+    background: #183451;
+    color: #F3ECDE;
+    font-family: "Vazirmatn", sans-serif;
+    line-height: 1.9;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  header {
+    padding: 22px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-bottom: 1px solid #ffffff25;
+  }
+
+  header > a, footer > a { font-size: 1.2rem; font-weight: bold; }
+  header span { color: #D4AF83; }
+
+  nav { display: flex; flex-wrap: wrap; gap: 22px; }
+  nav a:hover, .meta a:hover { color: #D4AF83; }
+
+  main { max-width: 1150px; width: 88%; margin: auto; }
+
+  .intro { padding: 65px 0 35px; }
+  .eyebrow { color: #D4AF83; font-size: .9rem; }
+  h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin: 8px 0; }
+  .intro p, .featured p, .card p { color: #F3ECDEBB; }
+
+  .featured {
+    padding: clamp(24px, 5vw, 48px);
+    background: #203F5B;
+    border: 1px solid #ffffff20;
+    border-radius: 20px;
+  }
+
+  .featured h2 {
+    color: #F3ECDE !important;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+  }
+  .button {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #A9501C;
+  }
+
+  .listing { padding: 60px 0 80px; }
+  .listing > h2 { font-size: 1.8rem; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    padding: 24px;
+    background: #203F5B;
+    border: 1px solid #ffffff20;
+    border-radius: 16px;
+  }
+
+  .card h3 {
+    color: #F3ECDE !important;
+    line-height: 1.8;
+  }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid #ffffff20;
+    font-size: .85rem;
+  }
+  .featured h2 {
+    color: #F3ECDE;
+  }
+  .meta a { color: #D4AF83; }
+  a:focus-visible { outline: 2px solid #D4AF83; outline-offset: 4px; }
+
+  @media (max-width: 650px) {
+    header { flex-direction: column; align-items: flex-start; }
+    nav { gap: 12px 18px; }
+    .grid { grid-template-columns: 1fr; }
+    .intro { padding-top: 42px; }
+  }
+
+/* Footer matching homepage */
+.site-footer {
+  padding-block: 70px 25px;
+  border-top: 1px solid rgba(243, 236, 222, 0.14);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding-bottom: 60px;
+}
+
+.footer-grid p {
+  max-width: 400px;
+  color: rgba(243, 236, 222, 0.6);
+  line-height: 2;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.footer-links a {
+  color: rgba(243, 236, 222, 0.72);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(243, 236, 222, 0.14);
+  color: rgba(243, 236, 222, 0.4);
+  font-size: 0.72rem;
+}
+
+@media (max-width: 650px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-bottom: 30px;
+  }
+
+  .footer-bottom {
+    flex-wrap: wrap;
+  }
+}
+/* استایل هماهنگ با هدر صفحه اصلی */
+.container {
+
+    width: min(1180px, calc(100% - 48px));
+    margin-inline: auto;
+  
+}
+
+.site-header {
+
+    position: relative;
+    z-index: 5;
+    border-bottom: 1px solid rgba(243, 236, 222, 0.15);
+    background: rgba(24, 52, 81, 0.96);
+  
+}
+
+.header-inner {
+
+    min-height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  
+}
+
+.logo {
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    color: #d4af83;
+    white-space: nowrap;
+  
+}
+
+.logo-name {
+
+    font-size: 1.35rem;
+    line-height: 1.15;
+    font-weight: 700;
+  
+}
+
+.logo-location {
+
+    color: rgba(243, 236, 222, 0.55);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+  
+}
+
+.main-nav {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex: 1;
+  
+}
+
+.main-nav a {
+
+    position: relative;
+    color: rgba(243, 236, 222, 0.78);
+    font-size: 0.88rem;
+    transition: color 0.25s ease;
+  
+}
+
+.main-nav a::after {
+
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -8px;
+    width: 0;
+    height: 1px;
+    background: #d4af83;
+    transition: width 0.25s ease;
+  
+}
+
+.main-nav a:hover {
+ color: #d4af83; 
+}
+
+.main-nav a:hover::after {
+ width: 100%; 
+}
+
+.mobile-menu {
+ display: none; 
+}
+
+.header-button {
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 19px;
+    background: #a9501c;
+    color: #f3ecde;
+    border: 1px solid #a9501c;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: background 0.25s ease, transform 0.25s ease;
+  
+}
+
+.header-button:hover {
+
+    background: #8f4317;
+    transform: translateY(-2px);
+  
+}
+
+@media (max-width: 850px) {
+.main-nav {
+ display: none; 
+}
+
+.mobile-menu {
+
+      display: block;
+      position: relative;
+    
+}
+
+.mobile-menu summary {
+
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 11px;
+      color: #f3ecde;
+      border: 1px solid rgba(212, 175, 131, 0.35);
+      border-radius: 4px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.8rem;
+    
+}
+
+.mobile-menu summary::-webkit-details-marker {
+ display: none; 
+}
+
+.mobile-menu[open] summary {
+ border-color: #d4af83; color: #d4af83; 
+}
+
+.mobile-menu nav {
+
+      position: absolute;
+      z-index: 20;
+      top: calc(100% + 10px);
+      right: 0;
+      display: grid;
+      min-width: 175px;
+      padding: 8px;
+      gap: 2px;
+      background: #102b44;
+      border: 1px solid rgba(212, 175, 131, 0.25);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    
+}
+
+.mobile-menu nav a {
+
+      padding: 11px 12px;
+      color: rgba(243, 236, 222, 0.86);
+      font-size: 0.85rem;
+    
+}
+
+.mobile-menu nav a:hover {
+ color: #d4af83; background: rgba(243, 236, 222, 0.04); 
+}
+}
+
+@media (max-width: 520px) {
+.container {
+
+      width: min(100% - 30px, 1180px);
+    
+}
+
+.header-inner {
+
+      min-height: 72px;
+      gap: 14px;
+    
+}
+
+.logo-name {
+ font-size: 1.2rem; 
+}
+
+.header-button {
+
+      padding: 9px 12px;
+      font-size: 0.75rem;
+    
+}
+}
+</style>
