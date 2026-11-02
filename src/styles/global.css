@@ -26,8 +26,27 @@ h5,
 h6 {
   color: var(--color-title) !important;
 }
+.cta h2 {
+  color: #183451 !important;
+}
 
+.cta p {
+  color: #183451 !important;
+}
 /* رنگ متن‌های اصلی */
 p {
   color: var(--color-text) !important;
+}
+/* رنگ اختصاصی سکشن آخرین مطالب */
+.latest-section h3,
+.latest-section h3 a {
+  color: #183451 !important;
+}
+
+.latest-section p {
+  color: rgba(24, 52, 81, 0.85) !important;
+}
+
+.latest-section h3 a:hover {
+  color: #a9501c !important;
 }

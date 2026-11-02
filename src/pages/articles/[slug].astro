@@ -34,11 +34,17 @@ const pageTitle = `${article.title} | مجله ملک`;
         <a class="back-link" href="/articles">← بازگشت به مقالات</a>
 
         <article>
-          <div class="article-meta">
-	 	 <span>{article.category}</span>
-		 <span>{article.date}</span>
-  		 <span>{article.readTime} دقیقه مطالعه</span>
-	 </div>
+	  <div class="article-content">	
+	    {article.content?.map((section) => (
+	     <section>
+              {section.heading && <h2>{section.heading}</h2>}
+
+              {section.paragraphs.map((paragraph) => (
+               <p>{paragraph}</p>
+              ))}
+             </section>
+           ))}
+         </div>
 
           <h1>{article.title}</h1>
           <p class="excerpt">{article.excerpt}</p>
